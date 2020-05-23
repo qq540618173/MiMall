@@ -19,12 +19,12 @@ export default {
 	},
 	mounted(){
 		// storage.setItem('avc', {"firstName":'wang'}, 'user')
-		// storage.clear('sex', 'user')
+		// // storage.clear('sex', 'user')
 
-		this.axios.get('/user/login').then((res) => {
-			console.log(res)
-			this.res = res
-		})
+		// this.axios.get('/user/login').then((res) => {
+		// 	console.log(res)
+		// 	this.res = res
+		// })
 	}
 }
 </script>

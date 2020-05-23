@@ -9,9 +9,10 @@
                     <a href="javascript:;">协议规则</a>
                 </div>
                 <div class="topbar-user">
-                    <a href="javascript:;">登录</a>
-                    <a href="javascript:;">注册</a>
-                    <a class="my-cart" href="javascript:;"><span class="icon-cart"></span>购物车</a>
+                    <a href="javascript:;" v-if="userName">{{userName}}</a>
+                    <a href="javascript:;" v-if="!userName">登录</a>
+                    <a href="javascript:;" v-if="userName">我的订单</a>
+                    <a class="my-cart" href="javascript:;" @click="gotoCart"><span class="icon-cart"></span>购物车</a>
                 </div>
             </div>
         </div>
@@ -23,15 +24,25 @@
                 <div class="header-menu">
                     <div class="item-menu">
                         <span>小米手机</span>
-                        <div class="children"></div>
+                        <div class="children">
+                            <ul>
+                                <li class="product" v-for="item in phoneList" :key="item.id">
+                                    <a :href="`/#/product?${item.id}`" target="_blank">
+                                        <div class="pro-img">
+                                            <img :src="item.mainImage" :alt="item.subtitle" />
+                                        </div>
+                                        <div class="pro-name">{{item.name}}</div>
+                                        <div class="pro-price">{{item.price | currency}}</div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="item-menu">
                         <span>红米手机</span>
-                        <div class="children"></div>
                     </div>
                     <div class="item-menu">
                         <span>小米电视</span>
-                        <div class="children"></div>
                     </div>
                 </div>
                 <div class="header-search">
@@ -47,13 +58,48 @@
 
 <script>
 export default {
-    name: 'nav-header'
+    name: 'nav-header',
+    data(){
+        return {
+            userName: 'wyc',
+            phoneList: []
+        }
+    },
+    mounted(){
+        this.getProductList()
+    },
+    methods: {
+        getProductList(){
+            this.axios.get('/products', {
+                params: {
+                    categoryId: '100012'
+                }
+            }).then(res => {
+                if(res.list.length>6){
+                    this.phoneList = res.list.slice(0, 6)
+                }
+            })
+        },
+        gotoCart(){
+            this.$router.push('/cart')
+        },
+        login(){
+            this.$router.push('/login')
+        }
+    },
+    filters: {
+        currency(val){
+            if(!val) return '0.00'
+            return '¥' + val.toFixed(2) + '元'
+        }
+    }
 }
 </script>
 
 <style lang="scss">
 @import './../assets/scss/base.scss';
 @import './../assets/scss/mixin.scss';
+@import './../assets/scss/config.scss';
 .hearder{
     .nav-topbar{
         height: 39px;
@@ -89,6 +135,7 @@ export default {
     .nav-header{
         .container{
             height: 112px;
+            position: relative;
             @include flex();
             .header-logo{
                 display: inline-block;
@@ -130,7 +177,68 @@ export default {
                         cursor: pointer;
                     }
                     &:hover{
-                        
+                        color: $colorA;
+                        .children{
+                            height: 220px;
+                            opacity: 1;
+                            transition: 0.5s;
+                        }
+                    }
+                    .children{
+                        position: absolute;
+                        top: 112px;
+                        left: 0;
+                        width: 1226px;
+                        height: 0;
+                        opacity: 0;
+                        overflow: hidden;
+                        border-top: 1px solid #E5E5E5;
+                        box-shadow: 0px 7px 6px 0px rgba(0,0,0,0.11);
+                        background-color: #FFFFFF;
+                        transition: 0.5s;
+                        .product{
+                            width: 16.6%;
+                            height: 220px;
+                            font-size: 12px;
+                            line-height: 12px;
+                            text-align: center;
+                            float: left;
+                            position: relative;
+                            &::before{
+                                content: "";
+                                position: absolute;
+                                top: 28px;
+                                right: 0;
+                                width: 1px;
+                                height: 100px;
+                                background-color: $colorF;
+                            }
+                            &:last-child::before{
+                                display: none;
+                            }
+                            a{
+                                display: inline-block;
+                                width: 100%;
+                            }
+                            img{
+                                max-width: 100%;
+                                max-height: 100%;
+                            }
+                            .pro-img{
+                                width: 100%;
+                                height: 111px;
+                                margin-top: 26px;
+                            }
+                            .pro-name{
+                                font-weight: bold;
+                                margin-top: 19px;
+                                margin-bottom: 8px;
+                                color: $colorB;
+                            }
+                            .pro-price{
+                                color: $colorA;
+                            }
+                        }
                     }
                 }
             }
