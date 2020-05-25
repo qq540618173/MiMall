@@ -313,7 +313,7 @@ export default {
                     pageSize: 14
                 }
             }).then(res => {
-                res.list = res.list.slice(7,14)
+                res.list = res.list.slice(6,14)
                 this.productList = [res.list.slice(0, 4), res.list.slice(4, 8)]
             })
         }
