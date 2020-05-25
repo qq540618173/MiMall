@@ -52,9 +52,9 @@ export default {
             margin-right: 8px;
             @include bgImg(20px, 20px, './../assets/imgs/icon-post.png', 20px)
         }
-    }
-    li:last-child{
-        border-right: 0;
+        &:last-child{
+            border-right: 0;
+        }
     }
 }
 </style>
