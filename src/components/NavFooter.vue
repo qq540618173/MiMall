@@ -6,10 +6,10 @@
                 <p>小米商城</p>
             </div>
             <div class="footer-link">
-                <a href="#">百度</a>
-                <a href="#">百度</a>
-                <a href="#">百度</a>
-                <a href="#">百度</a>
+                <a href="#">百度</a> |
+                <a href="#">百度</a> |
+                <a href="#">百度</a> |
+                <a href="#">百度</a> |
                 <a href="#">百度</a>
             </div>
             <div class="copyright">Copyright © 2020-2020 All Rights Reserved</div>
