@@ -62,7 +62,8 @@ export default {
     data(){
         return {
             userName: 'wyc',
-            phoneList: []
+            phoneList: [],
+            navList: ['小米手机', '红米手机', '小米电视']
         }
     },
     mounted(){
