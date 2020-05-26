@@ -10,7 +10,7 @@
                                 <ul v-for="(item, index) in menuList" :key="index">
                                     <li v-for="sub in item" :key="sub.id">
                                         <a :href="`/#/product/${sub.id}`">
-                                            <img :src="sub.img" alt="sub.name">{{sub.name}}
+                                            <img v-lazy="sub.img" alt="sub.name">{{sub.name}}
                                         </a>
                                     </li>
                                 </ul>
@@ -42,7 +42,7 @@
                 <swiper :options="swiperOptions">
                     <swiper-slide v-for="item in sliderList" :key="item.id">
                         <a :href="`/#/product/${item.id}`">
-                            <img :src="item.img">
+                            <img v-lazy="item.img">
                         </a>
                     </swiper-slide>
                     <!-- 如果需要分页器 -->
@@ -55,12 +55,12 @@
             </div>
             <div class="ads-box">
                 <a href="`/#/product/${item.id}`" v-for="item in adsList" :key="item.id">
-                    <img :src="item.img" alt="">
+                    <img v-lazy="item.img" alt="">
                 </a>
             </div>
             <div class="banner">
                 <a href="/#/product/30">
-                    <img src="./../assets/imgs/banner-1.png" alt="">
+                    <img v-lazy="require('./../assets/imgs/banner-1.png')" alt="">
                 </a>
             </div>
         </div>
@@ -70,7 +70,7 @@
                 <div class="wrapper">
                     <div class="banner-left">
                         <a href="/#/product/35">
-                            <img src="./../assets/imgs/mix-alpha.jpg" alt="">
+                            <img v-lazy="require('./../assets/imgs/mix-alpha.jpg')" alt="">
                         </a>
                     </div>
                     <div class="list-box">
@@ -78,7 +78,7 @@
                             <div class="item" v-for="(item, i) in arr" :key="i">
                                 <span class="tag" :class="{'new': i%2 == 0}">新品</span>
                                 <div class="item-img">
-                                    <img :src="item.mainImage" :alt="item.name">
+                                    <img v-lazy="item.mainImage" :alt="item.name">
                                 </div>
                                 <div class="item-info">
                                     <h3>{{item.name}}</h3>
