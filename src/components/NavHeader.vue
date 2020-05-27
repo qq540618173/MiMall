@@ -12,7 +12,7 @@
                     <a href="javascript:;" v-if="userName">{{userName}}</a>
                     <a href="javascript:;" v-if="!userName" @click="login">登录</a>
                     <a href="javascript:;" v-if="userName">我的订单</a>
-                    <a class="my-cart" href="javascript:;" @click="gotoCart"><span class="icon-cart"></span>购物车</a>
+                    <a class="my-cart" href="javascript:;" @click="gotoCart"><span class="icon-cart"></span>购物车({{cartCount}})</a>
                 </div>
             </div>
         </div>
@@ -61,7 +61,6 @@ export default {
     name: 'nav-header',
     data(){
         return {
-            userName: '',
             phoneList: [],
             navList: ['小米手机', '红米手机', '小米电视']
         }
@@ -86,6 +85,14 @@ export default {
         },
         login(){
             this.$router.push('/login')
+        }
+    },
+    computed: {
+        userName(){
+            return this.$store.state.username
+        },
+        cartCount(){
+            return this.$store.state.cartCount
         }
     },
     filters: {
@@ -197,6 +204,7 @@ export default {
                         box-shadow: 0px 7px 6px 0px rgba(0,0,0,0.11);
                         background-color: #FFFFFF;
                         transition: 0.5s;
+                        z-index: 10;
                         .product{
                             width: 16.6%;
                             height: 220px;

@@ -4,6 +4,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueLazyLoad from 'vue-lazyload'
 import VueCookie from 'vue-cookie'
+import store from './store'
 // import env from './env'
 
 import App from './App.vue'
@@ -52,6 +53,7 @@ Vue.use(VueLazyLoad, {
 Vue.config.productionTip = false
 
 new Vue({
+	store,
 	router,
 	render: h => h(App),
 }).$mount('#app')
