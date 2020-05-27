@@ -10,7 +10,7 @@
                 </div>
                 <div class="topbar-user">
                     <a href="javascript:;" v-if="userName">{{userName}}</a>
-                    <a href="javascript:;" v-if="!userName">登录</a>
+                    <a href="javascript:;" v-if="!userName" @click="login">登录</a>
                     <a href="javascript:;" v-if="userName">我的订单</a>
                     <a class="my-cart" href="javascript:;" @click="gotoCart"><span class="icon-cart"></span>购物车</a>
                 </div>
@@ -61,7 +61,7 @@ export default {
     name: 'nav-header',
     data(){
         return {
-            userName: 'wyc',
+            userName: '',
             phoneList: [],
             navList: ['小米手机', '红米手机', '小米电视']
         }

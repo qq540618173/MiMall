@@ -69,9 +69,9 @@ export default {
 		},
 		register(){
 			this.axios.post('/user/register', {
-				username: 'admin',
+				username: 'wyc',
 				password: '123456',
-				email: '123456@qq.com'
+				email: 'wyc123456@qq.com'
 			}).then(() => {
 				alert('注册成功')
 			})

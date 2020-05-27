@@ -18,13 +18,20 @@ export default {
 		}
 	},
 	mounted(){
-		// storage.setItem('avc', {"firstName":'wang'}, 'user')
-		// // storage.clear('sex', 'user')
+		this.getUser()
+		this.getCartCount()
+	},
+	methods: {
+		getUser(){
+			this.axios.get('/user').then(() => {
 
-		// this.axios.get('/user/login').then((res) => {
-		// 	console.log(res)
-		// 	this.res = res
-		// })
+			})
+		},
+		getCartCount(){
+			this.axios.get('/carts/products/sum').then(() => {
+
+			})
+		}
 	}
 }
 </script>
