@@ -38,7 +38,10 @@ axios.interceptors.response.use((response) => {
 	} else if(res.status === 10){
 		//未登录
 		let path = location.hash;
-		if(path != '#/index') window.location.href = '/#/login'
+		if(path != '#/index') {
+			window.location.href = '/#/login'
+		}
+		return Promise.reject(res);
 	} else {
 		alert(res.msg)
 		return Promise.reject(res);

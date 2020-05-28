@@ -75,7 +75,7 @@
                     </div>
                     <div class="list-box">
                         <div class="list" v-for="(arr, index) in productList" :key="index">
-                            <div class="item" v-for="(item, i) in arr" :key="i">
+                            <div class="item" v-for="(item, i) in arr" :key="i" @click="gotoDetail(item.id)">
                                 <span class="tag" :class="{'new': i%2 == 0}">新品</span>
                                 <div class="item-img">
                                     <img v-lazy="item.mainImage" :alt="item.name">
@@ -339,6 +339,9 @@ export default {
         },
         gotoCart(){
             this.$router.push('/cart')
+        },
+        gotoDetail(id){
+            this.$router.push(`/detail/${id}`)
         }
     }
 }

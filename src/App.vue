@@ -29,7 +29,7 @@ export default {
 		},
 		getCartCount(){
 			this.axios.get('/carts/products/sum').then((res = 0) => { //默认值 0
-				this.$store.dispatch('cartCount', res)
+				this.$store.dispatch('saveCartCount', res)
 			})
 		}
 	}
