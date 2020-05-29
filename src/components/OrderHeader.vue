@@ -9,7 +9,7 @@
                 <slot name="tip"></slot>
             </div>
             <div class="username">
-                <a href="javascript:;">wyc</a>
+                <a href="javascript:;">{{userName}}</a>
             </div>
         </div>
     </div>
@@ -20,6 +20,11 @@ export default {
     name: 'order-header',
     props: {
         title: String
+    },
+    computed: {
+        userName(){
+            return this.$store.state.username
+        }
     }
 }
 </script>
