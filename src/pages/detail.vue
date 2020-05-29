@@ -64,7 +64,8 @@
 <script>
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import ProductParam from './../components/ProductParam'
-import ServiceBar from './../components/ServiceBar';
+import ServiceBar from './../components/ServiceBar'
+import { Message } from 'element-ui'
 
 export default {
     name: 'detail',
@@ -104,6 +105,7 @@ export default {
                 selected: true
             }).then((res={cartProductVoList:0})=>{
                 this.$store.dispatch('saveCartCount', res.cartTotalQuantity);
+                Message.success('添加成功')
                 // this.$router.push('/cart');
             });
         }
