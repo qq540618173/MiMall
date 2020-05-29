@@ -59,6 +59,7 @@
 import OrderHeader from './../components/OrderHeader'
 import ServiceBar from './../components/ServiceBar'
 import NavFooter from './../components/NavFooter'
+import { Message } from 'element-ui'
 export default {
     name: 'cart',
     components: {
@@ -99,13 +100,13 @@ export default {
             let { quantity, productSelected, productStock } = item
             if (type == '-') {
                 if (quantity == 1) {
-                    alert('商品至少保留一件')
+                    Message.warning('商品至少保留一件')
                     return
                 }
                 quantity = --quantity
             } else if(type == '+') {
                 if (quantity > productStock) {
-                    alert('商品不能超过库存数量')
+                    Message.warning('商品不能超过库存数量')
                     return
                 }
                 quantity = ++quantity
@@ -127,7 +128,7 @@ export default {
         order(){
             let checked = this.list.every(item => !item.productSelected)
             if (checked) {
-                alert('请选择一件商品')
+                Message.warning('请选择一件商品')
             } else {
                 this.$router.push('/order/confirm')
             }

@@ -4,6 +4,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueLazyLoad from 'vue-lazyload'
 import VueCookie from 'vue-cookie'
+import { Message } from 'element-ui'
 import store from './store'
 // import env from './env'
 
@@ -43,7 +44,7 @@ axios.interceptors.response.use((response) => {
 		}
 		return Promise.reject(res);
 	} else {
-		alert(res.msg)
+		Message.error(res.msg)
 		return Promise.reject(res);
 	}
 })

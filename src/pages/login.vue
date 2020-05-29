@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import { Message } from 'element-ui'
 export default {
 	data(){
 		return {
@@ -74,7 +75,7 @@ export default {
 				password: '123456',
 				email: 'wyc123456@qq.com'
 			}).then(() => {
-				alert('注册成功')
+				Message.success('注册成功')
 			})
 		}
 	}
