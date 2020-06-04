@@ -34,6 +34,7 @@ export default {
 @import './../assets/scss/mixin.scss';
 .order-header{
     padding: 30px 0;
+    border-bottom: 2px solid $colorA;
     .container{
         @include flex();
         .title, .username{
@@ -53,7 +54,6 @@ export default {
                 font-size: $fontJ;
                 margin-left: 17px;
                 color: $colorD;
-                font-weight: bold;
             }
         }
         .username{

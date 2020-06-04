@@ -1,23 +1,48 @@
 <template>
     <div>
-        <order-header title="我的订单">
+        <order-header :title="title">
             <template v-slot:tip>
-                <span>温馨提示：订单列表</span>
+                <span>温馨提示：{{tip}}</span>
             </template>
         </order-header>
         <router-view></router-view>
+        <service-bar></service-bar>
         <nav-footer></nav-footer>
     </div>
 </template>
 
 <script>
 import OrderHeader from './../components/OrderHeader'
+import ServiceBar from './../components/ServiceBar'
 import NavFooter from './../components/NavFooter'
 export default {
     name: 'order',
     components: {
         OrderHeader,
+        ServiceBar,
         NavFooter
+    },
+    data(){
+        return {
+            title: '',
+            tip: ''
+        }
+    },
+    mounted(){
+        let path = this.$route.path
+        if( path == '/order/confirm' ){
+            this.title = '确认订单'
+            this.tip = '请认真填写收货地址'
+        } else if(path == '/order/list') {
+            this.title = '订单列表'
+            this.tip = '请确认订单列表详情'
+        } else if(path == '/order/pay') {
+            this.title = '订单支付'
+            this.tip = '请谨防钓鱼链接或诈骗电话，了解更多>'
+        }
+    },
+    methods: {
+
     }
 }
 </script>
