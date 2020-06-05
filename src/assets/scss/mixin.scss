@@ -31,3 +31,12 @@
     background-size: $size;
     display: block;
 }
+
+@mixin height($h:0,$lh:$h) {
+    height: $h;
+    line-height: $lh;
+}
+
+@mixin border($bw:1px,$bc:$colorF,$bs:solid) {
+    border: $bw $bs $bc; 
+}
