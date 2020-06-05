@@ -25,7 +25,7 @@
                     <div class="item-address">
                         <h2 class="addr-title">收货地址</h2>
                         <div class="addr-list clearfix">
-                            <div class="addr-info" v-for="(item, index) in list" :key="index">
+                            <div class="addr-info" :class="{'checked': index == checkIndex}" @click="checkIndex = index" v-for="(item, index) in list" :key="index">
                                 <h2>{{item.receiverName}}</h2>
                                 <div class="phone">{{item.receiverMobile}}</div>
                                 <div class="street">{{item.receiverProvince + ' ' + item.receiverCity + ' ' + item.receiverDistrict + ' ' + item.receiverAddress}}</div>
@@ -35,7 +35,7 @@
                                             <use xlink:href="#icon-del"></use>
                                         </svg>
                                     </a>
-                                    <a href="javascript:;" class="fr">
+                                    <a href="javascript:;" class="fr" @click="editAddressModal(item)">
                                         <svg class="icon icon-edit">
                                             <use xlink:href="#icon-edit"></use>
                                         </svg>
@@ -94,7 +94,7 @@
                     </div>
                     <div class="btn-group">
                         <a href="/#/cart" class="btn btn-default btn-large">返回购物车</a>
-                        <a href="javascript:;" class="btn btn-large">去结算</a>
+                        <a href="javascript:;" class="btn btn-large" @click="orderSubmit">去结算</a>
                     </div>
                 </div>
             </div>
@@ -153,6 +153,7 @@ export default {
             userAction: '',      //用户行为 0：新增， 1：编辑， 2删除
             showDelModal: false, //是否显示删除弹框
             showEditModal: false,//是否显示新增弹框
+            checkIndex: 0,       //默认选中地址
         }
     },
     components: {
@@ -168,11 +169,19 @@ export default {
                 this.list = res.list
             })
         },
+        //新增
         openAddressModal(){
             this.checkedItem = {}
             this.userAction = 0
             this.showEditModal = true
         },
+        //编辑
+        editAddressModal(item){
+            this.checkedItem = item
+            this.userAction = 1
+            this.showEditModal = true
+        },
+        //删除
         delAddress(item){
             this.checkedItem = item
             this.userAction = 2
@@ -245,6 +254,23 @@ export default {
                     this.count += item.quantity
                 })
             })
+        },
+        orderSubmit(){
+            let item = this.list[this.checkIndex]
+            if(!item){
+                Message.error('请选择收货地址')
+                return
+            }
+            this.axios.post('/orders', {
+                shippingId: item.id
+            }).then(res => {
+                this.$router.push({
+                    path: '/order/pay',
+                    query: {
+                        orderId: res.orderNo
+                    }
+                })
+            })
         }
     }
 }
@@ -276,6 +302,7 @@ export default {
                         height:180px;
                         border:1px solid #E5E5E5;
                         margin-right: 15px;
+                        margin-bottom: 12px;
                         padding: 15px 24px;
                         font-size: 14px;
                         color:#757575;

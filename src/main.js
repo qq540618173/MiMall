@@ -33,6 +33,7 @@ axios.defaults.timeout = 8000
  * 响应拦截
  */
 axios.interceptors.response.use((response) => {
+	//客户端错误拦截
 	let res = response.data
 	if(res.status === 0){
 		return res.data
@@ -47,6 +48,11 @@ axios.interceptors.response.use((response) => {
 		Message.error(res.msg)
 		return Promise.reject(res);
 	}
+},(error) => {
+	//服务端错误拦截
+	let res = error.response
+	Message.error(res.data.message)
+	return Promise.reject(res);
 })
 
 Vue.use(VueAxios, axios)
