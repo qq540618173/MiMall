@@ -53,6 +53,15 @@
                     <div class="scroll-more">
                         <img src="/imgs/loading-svg/loading-spinning-bubbles.svg" alt="" v-show="loading">
                     </div>
+                    <el-pagination
+                        class="pagination"
+                        background
+                        layout = "prev, pager, next"
+                        :pageSize = "pageSize"
+                        :total = "total"
+                        @current-change="handleChange"
+                    >
+                    </el-pagination>
                     <no-data v-if="!loading && list.length==0"></no-data>
                 </div>
             </div>
@@ -61,20 +70,25 @@
 </template>
 
 <script>
+import { Pagination } from 'element-ui'
 import OrderHeader from './../components/OrderHeader'
 import Loading from './../components/Loading'
 import NoData from './../components/NoData'
 export default {
-    name: 'orderList',
+    name: 'order-list',
     components: {
         OrderHeader,
         Loading,
-        NoData
+        NoData,
+        [Pagination.name]: Pagination
     },
     data(){
         return {
             loading: true,
-            list: []
+            list: [],
+            pageSize: 2,
+            pageNum: 1,
+            total: 0,
         }
     },
     mounted(){
@@ -82,8 +96,14 @@ export default {
     },
     methods: {
         getOrderList(){
-            this.axios.get('/orders').then(res => {
-                this.list = [] || res.list
+            this.axios.get('/orders', {
+                params: {
+                    pageSize: this.pageSize,
+                    pageNum: this.pageNum
+                }
+            }).then(res => {
+                this.list = res.list
+                this.total = res.total
                 this.loading = false
             }).catch(() => {
                 this.loading = false
@@ -96,6 +116,10 @@ export default {
                     orderId: orderNo
                 }
             })
+        },
+        handleChange(pageNum){
+            this.pageNum = pageNum
+            this.getOrderList()
         }
     }
 }
@@ -168,11 +192,11 @@ export default {
                 text-align:right;
             }
             .el-pagination.is-background .el-pager li:not(.disabled).active{
-                background-color: #FF6600;
+                background-color: $colorA;
             }
             .el-button--primary{
-                background-color: #FF6600;
-                border-color: #FF6600;
+                background-color: $colorA;
+                border-color: $colorA;
             }
             .load-more,.scroll-more{
                 text-align:center;
