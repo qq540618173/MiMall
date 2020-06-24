@@ -7,9 +7,14 @@ module.exports = {
                 target:'http://mall-pre.springboot.cn',
                 changeOrigin:true,
                 pathRewrite:{
-                        '/api':''
+                    '/api':''
                 }
             }
         }
+    },
+    productionSourceMap: false, 
+    chainWebpack: config => {
+        //删除预加载文件
+        config.plugins.delete('prefetch')
     }
 }
